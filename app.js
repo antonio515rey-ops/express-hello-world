@@ -4,19 +4,19 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 10000;
 
-// Habilitar CORS para recibir peticiones desde tu frontend en Netlify
+// Permitir peticiones desde tu frontend en Netlify
 app.use(cors());
 app.use(express.json());
 
-// Tu API Key de JustAnotherPanel
-const JAP_API_KEY = process.env.JAP_API_KEY || 'TU_API_KEY_DE_JAP';
+// Reemplaza 'TU_API_KEY_AQUI' por tu clave API real de JustAnotherPanel
+const JAP_API_KEY = process.env.JAP_API_KEY || 'TU_API_KEY_AQUI';
 const JAP_API_URL = 'https://justanotherpanel.com/api/v2';
 
 app.get('/', (req, res) => {
-    res.send('Backend del Panel SMM funcionando.');
+    res.send('Backend del Panel SMM activo y listo.');
 });
 
-// Ruta que recibe el pedido desde el frontend en Netlify
+// Ruta de la API para recibir órdenes desde el frontend
 app.post('/api/order', async (req, res) => {
     const { service, link, quantity } = req.body;
 
@@ -36,8 +36,8 @@ app.post('/api/order', async (req, res) => {
         const data = await response.json();
         res.json(data);
     } catch (error) {
-        console.error('Error enviando orden a JAP:', error);
-        res.status(500).json({ error: 'Error al conectar con la API del proveedor.' });
+        console.error('Error enviando la orden a JAP:', error);
+        res.status(500).json({ error: 'Error al conectar con el servidor de JustAnotherPanel.' });
     }
 });
 
